@@ -553,18 +553,18 @@ static void uart_init(void)
 static void services_init(void)
 {
     uint32_t err_code;
-    ble_dfu_buttonless_init_t dfus_init =
-    {
-        .evt_handler = ble_dfu_evt_handler
-    };
+//    ble_dfu_buttonless_init_t dfus_init =
+//    {
+//        .evt_handler = ble_dfu_evt_handler
+//    };
 
-    // initialize the async svci interface to bootloader.
-    err_code = ble_dfu_buttonless_async_svci_init();
-    APP_ERROR_CHECK(err_code);
-    
-    
-    err_code = ble_dfu_buttonless_init(&dfus_init);
-    APP_ERROR_CHECK(err_code);
+//    // initialize the async svci interface to bootloader.
+//    err_code = ble_dfu_buttonless_async_svci_init();
+//    APP_ERROR_CHECK(err_code);
+//    
+//    
+//    err_code = ble_dfu_buttonless_init(&dfus_init);
+//    APP_ERROR_CHECK(err_code);
 		
 	
 		
@@ -1049,7 +1049,7 @@ int main(void)
     for (;;)
     {
 			nrf_gpio_pin_toggle(4);
-			nrf_delay_ms(100);
+			nrf_delay_ms(1000);
 			counter-=5;
 			SEGGER_RTT_printf(0, "our_counter = %d\n\r", counter);
 //        if (NRF_LOG_PROCESS() == false)
