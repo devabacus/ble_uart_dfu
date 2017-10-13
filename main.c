@@ -1049,8 +1049,8 @@ int main(void)
     for (;;)
     {
 			nrf_gpio_pin_toggle(4);
-			nrf_delay_ms(50);
-			//privet
+			nrf_delay_ms(55);
+			//kak dela
 			counter-=5;
 			SEGGER_RTT_printf(0, "our_counter = %d\n\r", counter);
 //        if (NRF_LOG_PROCESS() == false)
