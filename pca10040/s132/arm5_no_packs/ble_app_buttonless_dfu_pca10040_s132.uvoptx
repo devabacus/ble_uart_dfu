@@ -133,7 +133,6 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>Ёт)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -150,22 +149,6 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>1048</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>168238</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\..\..\main.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\nrf52832_xxaa\../../../main.c\1048</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
           <LineNumber>60</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>149018</Address>
@@ -180,7 +163,7 @@
           <Expression>\\nrf52832_xxaa\../../../../../../components/libraries/util/app_error_weak.c\60</Expression>
         </Bp>
         <Bp>
-          <Number>2</Number>
+          <Number>1</Number>
           <Type>0</Type>
           <LineNumber>134</LineNumber>
           <EnabledFlag>1</EnabledFlag>
@@ -196,6 +179,14 @@
           <Expression>\\nrf52832_xxaa\../../../../../../components/libraries/util/app_error.c\134</Expression>
         </Bp>
       </Breakpoint>
+      <MemoryWindow1>
+        <Mm>
+          <WinNumber>1</WinNumber>
+          <SubType>257</SubType>
+          <ItemText>0x7C0000</ItemText>
+          <AccSizeX>0</AccSizeX>
+        </Mm>
+      </MemoryWindow1>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
