@@ -1038,11 +1038,13 @@ void fds_evt_handler(fds_evt_t const * const p_fds_evt)
 							
             }
 						init_flag = 1;
+						SEGGER_RTT_printf(0, "i");
             break;
 				case FDS_EVT_WRITE:
 						if (p_fds_evt->result == FDS_SUCCESS)
 						{
 							write_flag=1;
+							SEGGER_RTT_printf(0, "w");
 						}
 						break;
 						
@@ -1050,6 +1052,7 @@ void fds_evt_handler(fds_evt_t const * const p_fds_evt)
 						if (p_fds_evt->result == FDS_SUCCESS)
 						{
 							delete_flag=1;
+							SEGGER_RTT_printf(0, "d");
 						}
 						break;
         default:
@@ -1105,9 +1108,6 @@ ret_code_t fds_write_value(uint32_t* value, uint16_t file_id, uint16_t rec_key)
 
 
 
-
-
-
 ret_code_t fds_get_data(uint32_t* value, uint16_t file_id, uint16_t rec_key)
 {
 	  fds_record_desc_t record_desc;
@@ -1134,13 +1134,6 @@ ret_code_t fds_get_data(uint32_t* value, uint16_t file_id, uint16_t rec_key)
 		return NRF_SUCCESS;
 	//	APP_ERROR_CHECK(err_code);
 }
-
-
-
-
-
-
-
 
 int main(void)
 {
