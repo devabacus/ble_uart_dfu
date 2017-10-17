@@ -1038,13 +1038,13 @@ void fds_evt_handler(fds_evt_t const * const p_fds_evt)
 							
             }
 						init_flag = 1;
-						SEGGER_RTT_printf(0, "i");
+						//SEGGER_RTT_printf(0, "i");
             break;
 				case FDS_EVT_WRITE:
 						if (p_fds_evt->result == FDS_SUCCESS)
 						{
 							write_flag=1;
-							SEGGER_RTT_printf(0, "w");
+							//SEGGER_RTT_printf(0, "w");
 						}
 						break;
 						
@@ -1052,7 +1052,7 @@ void fds_evt_handler(fds_evt_t const * const p_fds_evt)
 						if (p_fds_evt->result == FDS_SUCCESS)
 						{
 							delete_flag=1;
-							SEGGER_RTT_printf(0, "d");
+							//SEGGER_RTT_printf(0, "d");
 						}
 						break;
         default:
