@@ -1,9 +1,9 @@
 #include "hx711.h"
 #include "nrf_drv_gpiote.h"
 #include "nrf_gpio.h"
-#include "nrf_drv_timer.h"
+//#include "nrf_drv_timer.h"
 //#include "nrf_drv_pwm.h"
-#include "nrf_drv_ppi.h"
+//#include "nrf_drv_ppi.h"
 
 
 

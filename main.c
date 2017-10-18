@@ -88,6 +88,7 @@
 
 #include "app_uart.h"
 #include "app_util_platform.h"
+#include "hx711.h"
 
 
 #define APP_FEATURE_NOT_SUPPORTED       BLE_GATT_STATUS_ATTERR_APP_BEGIN + 2        /**< Reply when unsupported features are requested. */
@@ -1043,19 +1044,11 @@ int main(void)
     application_timers_start();
     advertising_start(erase_bonds);
 		
-		nrf_gpio_cfg_output(4);
-		uint8_t counter = 1000;
     // Enter main loop.
     for (;;)
     {
-			nrf_gpio_pin_toggle(4);
-			nrf_delay_ms(100);
-			counter-=5;
-			SEGGER_RTT_printf(0, "our_counter = %d\n\r", counter);
-//        if (NRF_LOG_PROCESS() == false)
-//        {
-//            nrf_pwr_mgmt_run();
-//        }
+				Weighing();
+				SEGGER_RTT_printf(0, "%d\n\r", adc_value);
     }
 }
 
