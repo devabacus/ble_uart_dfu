@@ -554,18 +554,18 @@ static void uart_init(void)
 static void services_init(void)
 {
     uint32_t err_code;
-    ble_dfu_buttonless_init_t dfus_init =
-    {
-        .evt_handler = ble_dfu_evt_handler
-    };
+//    ble_dfu_buttonless_init_t dfus_init =
+//    {
+//        .evt_handler = ble_dfu_evt_handler
+//    };
 
-    // initialize the async svci interface to bootloader.
-    err_code = ble_dfu_buttonless_async_svci_init();
-    APP_ERROR_CHECK(err_code);
-    
-    
-    err_code = ble_dfu_buttonless_init(&dfus_init);
-    APP_ERROR_CHECK(err_code);
+//    // initialize the async svci interface to bootloader.
+//    err_code = ble_dfu_buttonless_async_svci_init();
+//    APP_ERROR_CHECK(err_code);
+//    
+//    
+//    err_code = ble_dfu_buttonless_init(&dfus_init);
+//    APP_ERROR_CHECK(err_code);
 		
 	
 		
@@ -1043,11 +1043,12 @@ int main(void)
     // Start execution.
     application_timers_start();
     advertising_start(erase_bonds);
-		
+		HX711_init();
     // Enter main loop.
     for (;;)
     {
 				Weighing();
+				nrf_delay_ms(50);
 				SEGGER_RTT_printf(0, "%d\n\r", adc_value);
     }
 }

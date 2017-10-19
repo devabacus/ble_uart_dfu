@@ -18,7 +18,7 @@ void in_data_handler (nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
 void HX711_init(void)
 {
 	nrf_drv_gpiote_init();
-	nrf_gpio_pin_set(HX_DATA);
+//	nrf_gpio_pin_set(HX_DATA);
 	nrf_drv_gpiote_in_config_t in_data_config = GPIOTE_CONFIG_IN_SENSE_HITOLO(true);
 	in_data_config.pull = NRF_GPIO_PIN_PULLUP;
 	
@@ -58,8 +58,7 @@ uint32_t Weighing(void)
 		nrf_gpio_pin_set(HX_SCK);
 		nrf_delay_us(1);
 		nrf_gpio_pin_clear(HX_SCK);
-		nrf_delay_us(1);
-				
+	nrf_delay_us(1);
 				
 		adc_ready = 0;
 		nrf_drv_gpiote_in_event_enable(HX_DATA, true);
