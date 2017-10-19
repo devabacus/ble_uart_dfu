@@ -88,6 +88,7 @@
 
 #include "app_uart.h"
 #include "app_util_platform.h"
+#include "hx711.h"
 
 
 #define APP_FEATURE_NOT_SUPPORTED       BLE_GATT_STATUS_ATTERR_APP_BEGIN + 2        /**< Reply when unsupported features are requested. */
@@ -574,8 +575,6 @@ static void services_init(void)
 //    
 //    err_code = ble_dfu_buttonless_init(&dfus_init);
 //    APP_ERROR_CHECK(err_code);
-//		
-	
 		
 		ble_nus_init_t nus_init;
 
@@ -1180,20 +1179,15 @@ int main(void)
     // Start execution.
     application_timers_start();
     advertising_start(erase_bonds);
-		
-		nrf_gpio_cfg_output(4);
-		uint8_t counter = 1000;
+		HX711_init();
     // Enter main loop.
     for (;;)
     {
-//			nrf_gpio_pin_toggle(4);
-//			nrf_delay_ms(100);
-//			counter-=5;
-//			SEGGER_RTT_printf(0, "our_counter = %d\n\r", counter);
-//        if (NRF_LOG_PROCESS() == false)
-//        {
-//            nrf_pwr_mgmt_run();
-//        }
+        ads1230_test
+				Weighing();
+				nrf_delay_ms(50);
+				SEGGER_RTT_printf(0, "%d\n\r", adc_value);
+
     }
 }
 
