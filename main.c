@@ -139,6 +139,15 @@ static void advertising_start(bool erase_bonds);                                
 
 
 
+uint8_t init_flag = 0;
+uint8_t write_flag = 0;
+uint8_t delete_flag = 0;
+
+uint16_t file_id = 0x0001;
+uint16_t rec_key = 0x0022;
+uint32_t value_flash = 0xCCCCAAAA;
+
+
 
 /**@brief Handler for shutdown preparation.
  *
@@ -566,8 +575,6 @@ static void services_init(void)
 //    
 //    err_code = ble_dfu_buttonless_init(&dfus_init);
 //    APP_ERROR_CHECK(err_code);
-		
-	
 		
 		ble_nus_init_t nus_init;
 
@@ -1016,9 +1023,128 @@ static void power_management_init(void)
 
 /**@brief Function for application main entry.
  */
+
+
+void fds_evt_handler(fds_evt_t const * const p_fds_evt)
+{
+    switch (p_fds_evt->id)
+    {
+			SEGGER_RTT_printf(0, "handler\n\r");
+        case FDS_EVT_INIT:
+            if (p_fds_evt->result != FDS_SUCCESS)
+            {
+                // Initialization failed.
+							
+            }
+						init_flag = 1;
+            break;
+				case FDS_EVT_WRITE:
+						if (p_fds_evt->result == FDS_SUCCESS)
+						{
+							write_flag=1;
+						}
+						break;
+						
+				case FDS_EVT_DEL_RECORD:
+						if (p_fds_evt->result == FDS_SUCCESS)
+						{
+							delete_flag=1;
+						}
+						break;
+        default:
+            break;
+    }
+}
+
+
+
+
+
+ret_code_t fds_test_init (void)
+{
+		
+		ret_code_t ret = fds_register(fds_evt_handler);
+		if (ret != FDS_SUCCESS)
+		{
+			//SEGGER_RTT_printf(0, "%d\n\r", ret);
+					return ret;
+		}
+		ret = fds_init();
+		if (ret != FDS_SUCCESS)
+		{
+				return ret;
+		}
+		
+		return NRF_SUCCESS;
+		
+}
+
+
+
+
+ret_code_t fds_write_value(uint32_t* value, uint16_t file_id, uint16_t rec_key)
+{
+		fds_record_desc_t record_desc;
+		fds_record_t        record;
+		// Set up record.
+		record.file_id              = file_id;
+		record.key              		= rec_key;
+		record.data.p_data = value;
+		record.data.length_words   = 1;
+		write_flag = 0;
+				
+	  ret_code_t ret = fds_record_write(&record_desc, &record);
+		if (ret != FDS_SUCCESS)
+		{
+				return ret;
+		}
+		 SEGGER_RTT_printf(0,"Writing address = %x\r\n",record_desc.p_record);
+		return NRF_SUCCESS;
+}
+
+
+
+
+
+
+ret_code_t fds_get_data(uint32_t* value, uint16_t file_id, uint16_t rec_key)
+{
+	  fds_record_desc_t record_desc;
+		fds_flash_record_t  flash_record;
+		fds_find_token_t    ftok ={0};//Important, make sure you zero init the ftok token
+		uint32_t err_code;
+		
+		//SEGGER_RTT_printf(0,"Start getting data... \r\n");
+		fds_record_find(file_id, rec_key, &record_desc, &ftok);
+		err_code = fds_record_open(&record_desc, &flash_record);
+		if (err_code != FDS_SUCCESS)
+		{
+				return err_code;
+		}
+		*value = *((uint32_t *) flash_record.p_data);
+				
+		//SEGGER_RTT_printf(0,"I got Data_ = %d", *value);
+		//SEGGER_RTT_printf(0,"\r\n");
+		err_code = fds_record_close(&record_desc);
+		if (err_code != FDS_SUCCESS)
+		{
+				return err_code;
+		}
+		return NRF_SUCCESS;
+	//	APP_ERROR_CHECK(err_code);
+}
+
+
+
+
+
+
+
+
 int main(void)
 {
     bool erase_bonds;
+	 ret_code_t err_code;
 
     // Initialize.
     log_init();
@@ -1038,6 +1164,16 @@ int main(void)
     services_init();
     conn_params_init();
 
+		
+		err_code = fds_test_init();
+		APP_ERROR_CHECK(err_code);
+		while(init_flag == 0);
+		fds_write_value(&value_flash,file_id,rec_key);
+		//while(write_flag == 0);
+		
+		
+	
+	
     NRF_LOG_INFO("Application started\n");
 
     // Start execution.
@@ -1047,9 +1183,11 @@ int main(void)
     // Enter main loop.
     for (;;)
     {
+        ads1230_test
 				Weighing();
 				nrf_delay_ms(50);
 				SEGGER_RTT_printf(0, "%d\n\r", adc_value);
+
     }
 }
 
